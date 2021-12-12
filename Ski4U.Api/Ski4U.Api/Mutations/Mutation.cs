@@ -7,7 +7,7 @@ using static Ski4U.Api.Models.SkiBootModels;
 
 namespace Ski4U.Api.Mutations
 {
-    public class MutationSkiBoot
+    public class Mutation
     {
         public async Task<SkiBoot> AddSkiBoot(AddSkiBootRequest input, [Service] ISkiBootRepository skiBootRepository, CancellationToken cancellationToken)
         {

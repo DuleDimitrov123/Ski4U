@@ -9,6 +9,8 @@ namespace Ski4U.Repository.Contracts
     {
         Task<IList<SkiBoot>> GetAllSkiBoots();
 
+        Task<IList<SkiBoot>> GetSkiBootByIds(IList<int> ids);
+
         Task<SkiBoot> AddSkiBoot(SkiBoot skiBoot, CancellationToken cancellationToken);
     }
 }

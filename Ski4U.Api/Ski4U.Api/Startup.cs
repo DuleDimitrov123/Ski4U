@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Ski4U.Api.Mutations;
 using Ski4U.Api.Queries;
 using Ski4U.Data;
+using Ski4U.DataLoader.DataLoaders;
 using Ski4U.Repository;
 using Ski4U.Repository.Contracts;
 using Ski4U.Repository.Implementations;
@@ -37,12 +38,16 @@ namespace Ski4U.Api
 
             services
                 .AddGraphQLServer()
-                .AddQueryType<QuerySkiBoot>()
-                .AddMutationType<MutationSkiBoot>()
+                .AddQueryType<Query>()
+                .AddMutationType<Mutation>()
                 .AddFiltering()
                 .AddSorting();
 
+            //repositories
             services.AddTransient<ISkiBootRepository, SkiBootRepository>();
+
+            //data loaders
+            services.AddTransient<SkiBootBatchDataLoader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

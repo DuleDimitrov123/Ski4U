@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ski4U.DataLoader\Ski4U.DataLoader.csproj" />
     <ProjectReference Include="..\Ski4U.Data\Ski4U.Data.csproj" />
     <ProjectReference Include="..\Ski4U.Repository\Ski4U.Repository.csproj" />
   </ItemGroup>
