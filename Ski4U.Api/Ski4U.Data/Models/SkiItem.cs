@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 
 namespace Ski4U.Data.Models
 {
-    public class SkiItem
+    public class SkiItem : IEntityWithId
     {
-        [Key]
         public int Id { get; set; }
 
         public double Price { get; set; }
+
+        public string Name { get; set; }
 
         public Sex Sex { get; set; }
 
@@ -16,5 +17,7 @@ namespace Ski4U.Data.Models
         public bool IsNew { get; set; }
 
         public string Color { get; set; }
+
+        public IList<SkiItemAttribute> SkiItemAttributes { get; set; } = new List<SkiItemAttribute>();
     }
 }

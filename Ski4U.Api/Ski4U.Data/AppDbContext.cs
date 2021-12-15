@@ -14,21 +14,7 @@ namespace Ski4U.Data
 
         public DbSet<SkiItem> SkiItems { get; set; }
 
-        public DbSet<SkiBoot> SkiBoots { get; set; }
-
-        public DbSet<Ski> Skis { get; set; }
-
-        public DbSet<Helmet> Helmets { get; set; }
-
-        public DbSet<SkiStick> SkiStics { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<SkiBoot>().ToTable("SkiBoots");
-            modelBuilder.Entity<Ski>().ToTable("Skis");
-            modelBuilder.Entity<Helmet>().ToTable("Helmets");
-            modelBuilder.Entity<SkiStick>().ToTable("SkiSticks");
-        }
+        public DbSet<SkiItemAttribute> SkiItemAttributes { get; set; }
     }
 
     public class AppContextFactory : IDesignTimeDbContextFactory<AppDbContext>
