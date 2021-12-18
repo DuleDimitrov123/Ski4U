@@ -14,11 +14,13 @@ namespace Ski4U.Repository.Contracts
 
         Task<T> Delete(T obj);
 
+        Task<T> DeleteById(int id);
+
         Task<T> Update(T obj);
 
         Task<IList<T>> GetAll();
 
-        IList<T> GetAllWithIncludes(params Expression<Func<T, Object>>[] includes);
+        Task<IList<T>> GetAllWithIncludes(params Expression<Func<T, Object>>[] includes);
 
         T GetOneWithIncludes(int id, params Expression<Func<T, object>>[] includes);
     }

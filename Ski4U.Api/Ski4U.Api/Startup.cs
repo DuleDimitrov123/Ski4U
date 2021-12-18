@@ -1,7 +1,6 @@
 using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,10 +13,6 @@ using Ski4U.DataLoader.DataLoaders;
 using Ski4U.Repository;
 using Ski4U.Repository.Contracts;
 using Ski4U.Repository.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Ski4U.Api
 {
@@ -36,6 +31,7 @@ namespace Ski4U.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPooledDbContextFactory<AppDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("ConStr")));
+            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("ConStr")), ServiceLifetime.Transient);
 
             services
                 .AddGraphQLServer()

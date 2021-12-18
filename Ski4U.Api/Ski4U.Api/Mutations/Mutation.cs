@@ -11,19 +11,19 @@ namespace Ski4U.Api.Mutations
 {
     public class Mutation
     {
-        public async Task<SkiItem> AddSkiItem(AddSkiItemRequest input, [Service] ISkiItemRepository skiBootRepository, CancellationToken cancellationToken)
+        public async Task<SkiItem> AddSkiItem(AddSkiItemRequest request, [Service] ISkiItemRepository skiItemRepository)
         {
             var skiItem = new SkiItem
             {
-                Price = input.Price,
-                Sex = input.Sex,
-                Name = input.Name,
-                Season = input.Season,
-                IsNew = input.IsNew,
-                Color = input.Color
+                Price = request.Price,
+                Sex = request.Sex,
+                Name = request.Name,
+                Season = request.Season,
+                IsNew = request.IsNew,
+                Color = request.Color
             };
 
-            foreach (var item in input.SkiItemAttributesRequestResponse)
+            foreach (var item in request.SkiItemAttributesRequestResponse)
             {
                 skiItem.SkiItemAttributes.Add(new SkiItemAttribute
                 {
@@ -33,7 +33,34 @@ namespace Ski4U.Api.Mutations
                 });
             }
 
-            return await skiBootRepository.Add(skiItem);
+            return await skiItemRepository.Add(skiItem);
+        }
+        
+        public async Task<SkiItem> UpdateSkiItem(UpdateSkiItemRequest request, [Service] ISkiItemRepository skiItemRepository)
+        {
+            return await skiItemRepository.Update(
+                new SkiItem
+                {
+                    Id = request.Id,
+                    Price = request.Price,
+                    Sex = request.Sex,
+                    Name = request.Name,
+                    Season = request.Season,
+                    IsNew = request.IsNew,
+                    Color = request.Color
+                });
+        }
+
+        public async Task<SkiItem> DeleteSkiItem(int id, [Service] ISkiItemRepository skiItemRepository, [Service] ISkiItemAttributeRepository skiItemAttributeRepository)
+        {
+            var skiItemAttributes = await skiItemAttributeRepository.GetAllSkiItemAttributesBySkiItemId(id);
+
+            foreach (var sia in skiItemAttributes)
+            {
+                await skiItemAttributeRepository.DeleteById(sia.Id);
+            }
+
+            return await skiItemRepository.DeleteById(id);
         }
     }
 }

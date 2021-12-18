@@ -12,7 +12,6 @@ namespace Ski4U.Repository.Implementations
 {
     public class SkiItemRepository : Repository<SkiItem>, ISkiItemRepository
     {
-
         public SkiItemRepository(IDbContextFactory<AppDbContext> dbContextFactory)
             : base(dbContextFactory)
         {

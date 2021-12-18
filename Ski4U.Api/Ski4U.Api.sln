@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ski4U.Data", "Ski4U.Data\Sk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ski4U.Repository", "Ski4U.Repository\Ski4U.Repository.csproj", "{4D8E771A-277A-4790-8EC6-C2E2B8AE9DE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ski4U.DataLoader", "Ski4U.DataLoader\Ski4U.DataLoader.csproj", "{0A5B26D5-390A-40B0-BBFF-EAAD1729266D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ski4U.DataLoader", "Ski4U.DataLoader\Ski4U.DataLoader.csproj", "{0A5B26D5-390A-40B0-BBFF-EAAD1729266D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,9 +12,10 @@ namespace Ski4U.Api.Queries
     {
         [UseSorting]
         [UseFiltering]
-        public IList<SkiItem> GetSkiItems([Service] ISkiItemRepository skiItemRepository)
+        public async Task<IList<SkiItem>> GetSkiItems([Service] ISkiItemRepository skiItemRepository)
         {
-            return skiItemRepository.GetAllWithIncludes(item => item.SkiItemAttributes);
+            //return await skiItemRepository.GetAllWithIncludes(item => item.SkiItemAttributes);
+            return await skiItemRepository.GetAll();
         }
 
         [UseSorting]
@@ -26,9 +27,10 @@ namespace Ski4U.Api.Queries
 
         [UseSorting]
         [UseFiltering]
-        public IList<SkiItemAttribute> GetSkiItemAttributes([Service] ISkiItemAttributeRepository skiItemAttributeRepository)
+        public async Task<IList<SkiItemAttribute>> GetSkiItemAttributes([Service] ISkiItemAttributeRepository skiItemAttributeRepository)
         {
-            return skiItemAttributeRepository.GetAllWithIncludes(attribute => attribute.SkiItem);
+            //return await skiItemAttributeRepository.GetAllWithIncludes(attribute => attribute.SkiItem);
+            return await skiItemAttributeRepository.GetAll();
         }
     }
 }

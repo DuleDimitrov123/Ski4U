@@ -35,19 +35,27 @@ namespace Ski4U.Repository.Implementations
             return obj;
         }
 
+        public async Task<T> DeleteById(int id)
+        {
+            T entity = await _dbSet.FindAsync(id);
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
         public async virtual Task<IList<T>> GetAll()
         {
             return await _dbSet.ToListAsync<T>();
         }
 
-        public IList<T> GetAllWithIncludes(params Expression<Func<T, object>>[] includes)
+        public async Task<IList<T>> GetAllWithIncludes(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _dbSet.Include(includes[0]);
             foreach (var include in includes.Skip(1))
             {
                 query = query.Include(include);
             }
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
         public T GetOneWithIncludes(int id, params Expression<Func<T, object>>[] includes)
