@@ -17,23 +17,9 @@ namespace Ski4U.Repository.Implementations
         {
         }
 
-        /*public async Task<IList<SkiItem>> GetAllSkiItems()
-        {
-            return await _context.SkiItems.Include(item => item.SkiItemAttributes).ToListAsync();
-        }*/
-
         public async Task<IList<SkiItem>> GetSkiItemsByIds(IList<int> ids)
         {
             return await _dbSet.Include(item => item.SkiItemAttributes).Where(s => ids.Contains(s.Id)).ToListAsync();
         }
-
-        /*public async Task<SkiItem> AddSkiItem(SkiItem skiItem, CancellationToken cancellationToken)
-        {
-            _context.SkiItems.Add(skiItem);
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return skiItem;
-        }*/
     }
 }
