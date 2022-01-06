@@ -51,5 +51,16 @@ namespace Ski4U.Api.Queries
         }
 
         #endregion
+
+        #region Order
+
+        [UseSorting]
+        [UseFiltering]
+        public async Task<IList<Order>> GetOrders([Service] IOrderRepository orderRepository)
+        {
+            return await orderRepository.GetAll();
+        }
+
+        #endregion
     }
 }

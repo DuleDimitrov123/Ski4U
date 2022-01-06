@@ -46,6 +46,7 @@ namespace Ski4U.Api
             services.AddTransient<ISkiItemRepository, SkiItemRepository>();
             services.AddTransient<ISkiItemAttributeRepository, SkiItemAttributeRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
 
             //data loaders
             services.AddTransient<SkiItemBatchDataLoader>();

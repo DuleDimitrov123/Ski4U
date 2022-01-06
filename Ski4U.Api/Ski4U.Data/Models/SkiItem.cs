@@ -21,5 +21,7 @@ namespace Ski4U.Data.Models
         public IList<SkiItemAttribute> SkiItemAttributes { get; set; } = new List<SkiItemAttribute>();
 
         public IList<Comment> Comments { get; set; } = new List<Comment>();
+
+        public IList<Order> Orders { get; set; } = new List<Order>();
     }
 }
