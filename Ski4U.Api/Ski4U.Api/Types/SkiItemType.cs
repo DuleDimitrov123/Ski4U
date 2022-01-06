@@ -16,6 +16,10 @@ namespace Ski4U.Api.Types
             descriptor.Field(si => si.SkiItemAttributes)
                 .ResolveWith<Resolvers>(si => si.GetSkiItemAttributes(default!, default!))
                 .Description("List of ski item attributes to describe better the ski item");
+
+            descriptor.Field(si => si.Comments)
+                .ResolveWith<Resolvers>(si => si.GetComments(default!, default!))
+                .Description("List of comments that customers left for certain ski item.");
         }
 
         private class Resolvers
@@ -23,6 +27,11 @@ namespace Ski4U.Api.Types
             public async Task<IList<SkiItemAttribute>> GetSkiItemAttributes(SkiItem item, [Service] ISkiItemAttributeRepository repository)
             {
                 return await repository.GetAllSkiItemAttributesBySkiItemId(item.Id);
+            }
+
+            public async Task<IList<Comment>> GetComments(SkiItem item, [Service] ICommentRepository repository)
+            {
+                return await repository.GetAllCommentsBySkiItemId(item.Id);
             }
         }
     }

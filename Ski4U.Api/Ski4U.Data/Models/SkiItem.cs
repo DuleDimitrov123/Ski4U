@@ -19,5 +19,7 @@ namespace Ski4U.Data.Models
         public string Color { get; set; }
 
         public IList<SkiItemAttribute> SkiItemAttributes { get; set; } = new List<SkiItemAttribute>();
+
+        public IList<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

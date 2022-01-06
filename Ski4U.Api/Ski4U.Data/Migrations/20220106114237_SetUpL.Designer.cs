@@ -2,41 +2,23 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ski4U.Data;
 
 namespace Ski4U.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220106114237_SetUpL")]
+    partial class SetUpL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
-
-            modelBuilder.Entity("Ski4U.Data.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("CommentText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SkiItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SkiItemId");
-
-                    b.ToTable("Comments");
-                });
 
             modelBuilder.Entity("Ski4U.Data.Models.SkiItem", b =>
                 {
@@ -91,17 +73,6 @@ namespace Ski4U.Data.Migrations
                     b.ToTable("SkiItemAttributes");
                 });
 
-            modelBuilder.Entity("Ski4U.Data.Models.Comment", b =>
-                {
-                    b.HasOne("Ski4U.Data.Models.SkiItem", "SkiItem")
-                        .WithMany("Comments")
-                        .HasForeignKey("SkiItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SkiItem");
-                });
-
             modelBuilder.Entity("Ski4U.Data.Models.SkiItemAttribute", b =>
                 {
                     b.HasOne("Ski4U.Data.Models.SkiItem", "SkiItem")
@@ -115,8 +86,6 @@ namespace Ski4U.Data.Migrations
 
             modelBuilder.Entity("Ski4U.Data.Models.SkiItem", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("SkiItemAttributes");
                 });
 #pragma warning restore 612, 618

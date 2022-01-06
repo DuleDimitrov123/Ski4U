@@ -10,7 +10,6 @@ using Ski4U.Api.Queries;
 using Ski4U.Api.Types;
 using Ski4U.Data;
 using Ski4U.DataLoader.DataLoaders;
-using Ski4U.Repository;
 using Ski4U.Repository.Contracts;
 using Ski4U.Repository.Implementations;
 
@@ -39,12 +38,14 @@ namespace Ski4U.Api
                 .AddMutationType<Mutation>()
                 .AddType<SkiItemType>()
                 .AddType<SkiItemAttributeType>()
+                .AddType<CommentType>()
                 .AddFiltering()
                 .AddSorting();
 
             //repositories
             services.AddTransient<ISkiItemRepository, SkiItemRepository>();
             services.AddTransient<ISkiItemAttributeRepository, SkiItemAttributeRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
 
             //data loaders
             services.AddTransient<SkiItemBatchDataLoader>();
