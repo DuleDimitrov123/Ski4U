@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ski4U.Data;
 
 namespace Ski4U.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220107164231_AddCustomerWithOrders")]
+    partial class AddCustomerWithOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +54,26 @@ namespace Ski4U.Data.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Ski4U.Data.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("Ski4U.Data.Models.SkiItem", b =>
                 {
                     b.Property<int>("Id")
@@ -68,6 +90,9 @@ namespace Ski4U.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -78,6 +103,8 @@ namespace Ski4U.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("SkiItems");
                 });
@@ -105,6 +132,24 @@ namespace Ski4U.Data.Migrations
                     b.ToTable("SkiItemAttributes");
                 });
 
+            modelBuilder.Entity("Ski4U.Data.Models.Order", b =>
+                {
+                    b.HasOne("Ski4U.Data.Models.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Ski4U.Data.Models.SkiItem", b =>
+                {
+                    b.HasOne("Ski4U.Data.Models.Order", null)
+                        .WithMany("SkiItems")
+                        .HasForeignKey("OrderId");
+                });
+
             modelBuilder.Entity("Ski4U.Data.Models.SkiItemAttribute", b =>
                 {
                     b.HasOne("Ski4U.Data.Models.SkiItem", "SkiItem")
@@ -114,6 +159,16 @@ namespace Ski4U.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("SkiItem");
+                });
+
+            modelBuilder.Entity("Ski4U.Data.Models.Customer", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Ski4U.Data.Models.Order", b =>
+                {
+                    b.Navigation("SkiItems");
                 });
 
             modelBuilder.Entity("Ski4U.Data.Models.SkiItem", b =>

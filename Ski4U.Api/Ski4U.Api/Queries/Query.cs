@@ -10,6 +10,7 @@ namespace Ski4U.Api.Queries
 {
     public class Query
     {
+        #region SkiItem
         [UseSorting]
         [UseFiltering]
         public async Task<IList<SkiItem>> GetSkiItems([Service] ISkiItemRepository skiItemRepository)
@@ -32,5 +33,22 @@ namespace Ski4U.Api.Queries
             //return await skiItemAttributeRepository.GetAllWithIncludes(attribute => attribute.SkiItem);
             return await skiItemAttributeRepository.GetAll();
         }
+        #endregion
+
+        #region Customer
+        [UseSorting]
+        [UseFiltering]
+        public async Task<IList<Customer>> GetCustomers([Service] ICustomerRepository customerRepository)
+        {
+            return await customerRepository.GetAll();
+        }
+
+        [UseSorting]
+        [UseFiltering]
+        public async Task<Customer> GetCustomer(int id, CustomerBatchDataLoader dataLoader)
+        {
+            return await dataLoader.LoadAsync(id);
+        }
+        #endregion
     }
 }

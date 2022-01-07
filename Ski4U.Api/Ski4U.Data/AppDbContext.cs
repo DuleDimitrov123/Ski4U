@@ -15,6 +15,10 @@ namespace Ski4U.Data
         public DbSet<SkiItem> SkiItems { get; set; }
 
         public DbSet<SkiItemAttribute> SkiItemAttributes { get; set; }
+
+        //public DbSet<Order> Orders { get; set; }
+
+        public DbSet<Customer> Customers { get; set; }
     }
 
     public class AppContextFactory : IDesignTimeDbContextFactory<AppDbContext>
