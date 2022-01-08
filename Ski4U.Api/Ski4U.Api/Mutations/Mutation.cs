@@ -1,7 +1,11 @@
 ﻿using HotChocolate;
 using Ski4U.Data.Models;
 using Ski4U.Repository.Contracts;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Ski4U.Api.Models.CommentModels;
+using static Ski4U.Api.Models.OrderModels;
 using static Ski4U.Api.Models.SkiItemModels;
 
 namespace Ski4U.Api.Mutations
@@ -104,6 +108,67 @@ namespace Ski4U.Api.Mutations
 
         #region Order
 
+        public async Task<Order> AddOrder(IList<int> ids,
+            [Service] ISkiItemRepository skiItemRepository,
+            [Service] IOrderRepository orderRepository)
+        {
+            IList<SkiItem> skiItems = await skiItemRepository.GetSkiItemsByIds(ids);
+
+            double totalPrice = 0;
+
+            foreach (SkiItem skiItem in skiItems)
+            {
+                totalPrice += skiItem.Price;
+            }
+
+            var order = new Order
+            {
+                SkiItems = skiItems,
+                Price = (int)totalPrice
+            };
+
+            // TODO: check one more time
+            foreach (SkiItem skiItem in skiItems)
+            {
+                skiItem.Order = order;
+                try
+                {
+                    await skiItemRepository.Update(skiItem);
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
+            }
+
+            try
+            {
+                return await orderRepository.Add(order);
+            } 
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public async Task<Order> UpdateOrder(UpdateOrderRequest request,
+             [Service] IOrderRepository orderRepository,
+             [Service] ISkiItemRepository skiItemRepository)
+        {
+            SkiItem skiItem = await skiItemRepository.GetOne(request.skiItemId);
+            Order order = await orderRepository.GetOne(request.orderId);
+
+            order.SkiItems.Add(skiItem);
+            order.Price = (int)(order.Price + skiItem.Price);
+
+            return await orderRepository.Update(order);
+        }
+
+        public async Task<Order> DeleteOrder(int id, 
+            [Service] IOrderRepository orderRepository)
+        {
+            return await orderRepository.DeleteById(id);
+        }
 
         #endregion
     }

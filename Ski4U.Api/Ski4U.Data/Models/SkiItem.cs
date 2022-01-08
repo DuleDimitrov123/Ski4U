@@ -22,6 +22,7 @@ namespace Ski4U.Data.Models
 
         public IList<Comment> Comments { get; set; } = new List<Comment>();
 
-        public IList<Order> Orders { get; set; } = new List<Order>();
+        public int OrderId = 0;
+        public Order Order { get; set; } = new Order();
     }
 }

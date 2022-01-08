@@ -39,6 +39,7 @@ namespace Ski4U.Api
                 .AddType<SkiItemType>()
                 .AddType<SkiItemAttributeType>()
                 .AddType<CommentType>()
+                .AddType<OrderType>()
                 .AddFiltering()
                 .AddSorting();
 
@@ -50,6 +51,7 @@ namespace Ski4U.Api
 
             //data loaders
             services.AddTransient<SkiItemBatchDataLoader>();
+            services.AddTransient<OrderBatchDataLoader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

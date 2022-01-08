@@ -1,6 +1,8 @@
-﻿using HotChocolate;
+﻿using GreenDonut;
+using HotChocolate;
 using HotChocolate.Types;
 using Ski4U.Data.Models;
+using Ski4U.DataLoader.DataLoaders;
 using Ski4U.Repository.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,6 +22,10 @@ namespace Ski4U.Api.Types
             descriptor.Field(si => si.Comments)
                 .ResolveWith<Resolvers>(si => si.GetComments(default!, default!))
                 .Description("List of comments that customers left for certain ski item.");
+
+            descriptor.Field(si => si.Order)
+               .ResolveWith<Resolvers>(si => si.GetOrder(default!, default!))
+               .Description("This is order that this ski item belongs to.");
         }
 
         private class Resolvers
@@ -32,6 +38,12 @@ namespace Ski4U.Api.Types
             public async Task<IList<Comment>> GetComments(SkiItem item, [Service] ICommentRepository repository)
             {
                 return await repository.GetAllCommentsBySkiItemId(item.Id);
+            }
+
+            //TODO: skiItem.order is always null
+            public async Task<Order> GetOrder(SkiItem skiItem, OrderBatchDataLoader dataLoader)
+            {
+                return await dataLoader.LoadAsync(skiItem.OrderId);
             }
         }
     }

@@ -61,6 +61,20 @@ namespace Ski4U.Api.Queries
             return await orderRepository.GetAll();
         }
 
+        [UseSorting]
+        [UseFiltering]
+        public async Task<Order> GetOrder(int id, OrderBatchDataLoader dataLoader)
+        {
+            return await dataLoader.LoadAsync(id);
+        }
+
+        [UseSorting]
+        [UseFiltering]
+        public async Task<List<Order>> GetMutlipleIdOrders(List<int> id, OrderBatchDataLoader dataLoader)
+        {
+            return (List<Order>)await dataLoader.LoadAsync(id);
+        }
+
         #endregion
     }
 }

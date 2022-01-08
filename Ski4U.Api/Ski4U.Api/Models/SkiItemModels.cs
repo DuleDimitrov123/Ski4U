@@ -10,10 +10,5 @@ namespace Ski4U.Api.Models
         public record AddSkiItemRequest(double Price, Sex Sex, string Name, int Season, bool IsNew, string Color, IList<SkiItemAttributeRequestResponse> SkiItemAttributesRequestResponse);
 
         public record UpdateSkiItemRequest(int Id, double Price, Sex Sex, string Name, int Season, bool IsNew, string Color);
-
-
-        public record AddCommentRequest(string CommentText, int SkiItemId);
-        
-        public record UpdateCommentRequest(string CommentText, int CommentId);
     }
 }

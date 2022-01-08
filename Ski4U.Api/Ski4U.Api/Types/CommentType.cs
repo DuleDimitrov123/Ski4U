@@ -13,7 +13,7 @@ namespace Ski4U.Api.Types
 
             descriptor.Field(comment => comment.SkiItem)
                 .ResolveWith<Resolvers>(comment => comment.GetSkiItem(default!, default!))
-                .Description("This is the ski item to which the ski item attribute belongs");
+                .Description("This is the ski item to which the comment belongs");
         }
 
         private class Resolvers
