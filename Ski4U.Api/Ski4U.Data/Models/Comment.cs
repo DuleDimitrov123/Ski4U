@@ -1,4 +1,6 @@
-﻿namespace Ski4U.Data.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Ski4U.Data.Models
 {
     public class Comment : IEntityWithId
     {
@@ -8,6 +10,7 @@
 
         public int SkiItemId { get; set; }
 
+        [ForeignKey("SkiItemId")]
         public SkiItem SkiItem { get; set; }
 
         // public Customer Customer { get; set; }

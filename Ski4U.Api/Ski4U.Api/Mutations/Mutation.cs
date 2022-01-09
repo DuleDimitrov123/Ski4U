@@ -81,20 +81,24 @@ namespace Ski4U.Api.Mutations
             [Service] ICommentRepository commentRepository,
             [Service] ISkiItemRepository skiItemRepository)
         {
-
-            SkiItem skiItem = await skiItemRepository.GetOne(request.SkiItemId);
-
-            var comment = new Comment
+            try
             {
-                CommentText = request.CommentText,
-                SkiItemId = request.SkiItemId,
-                SkiItem = skiItem
-            };
+                SkiItem skiItem = await skiItemRepository.GetOne(request.SkiItemId);
 
-            skiItem.Comments.Add(comment);
+                var comment = new Comment
+                {
+                    CommentText = request.CommentText
+                };
+              
+                skiItem.Comments.Add(comment);
 
-            await skiItemRepository.Update(skiItem);
-            return await commentRepository.Add(comment);
+                await skiItemRepository.Update(skiItem);
+                return comment;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public async Task<Comment> UpdateComment(UpdateCommentRequest request,
