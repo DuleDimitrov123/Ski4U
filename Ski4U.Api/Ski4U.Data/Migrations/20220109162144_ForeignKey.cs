@@ -2,7 +2,7 @@
 
 namespace Ski4U.Data.Migrations
 {
-    public partial class SetUpL : Migration
+    public partial class ForeignKey : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

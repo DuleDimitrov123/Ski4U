@@ -35,7 +35,15 @@ namespace Ski4U.Api.Mutations
                 });
             }
 
-            return await skiItemRepository.Add(skiItem);
+            try
+            {
+                return await skiItemRepository.Add(skiItem);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
         }
 
         public async Task<SkiItem> UpdateSkiItem(UpdateSkiItemRequest request, [Service] ISkiItemRepository skiItemRepository)
@@ -112,39 +120,32 @@ namespace Ski4U.Api.Mutations
             [Service] ISkiItemRepository skiItemRepository,
             [Service] IOrderRepository orderRepository)
         {
-            IList<SkiItem> skiItems = await skiItemRepository.GetSkiItemsByIds(ids);
-
-            double totalPrice = 0;
-
-            foreach (SkiItem skiItem in skiItems)
-            {
-                totalPrice += skiItem.Price;
-            }
-
-            var order = new Order
-            {
-                SkiItems = skiItems,
-                Price = (int)totalPrice
-            };
-
-            // TODO: check one more time
-            foreach (SkiItem skiItem in skiItems)
-            {
-                skiItem.Order = order;
-                try
-                {
-                    await skiItemRepository.Update(skiItem);
-                }
-                catch (Exception e)
-                {
-                    return null;
-                }
-            }
-
             try
             {
-                return await orderRepository.Add(order);
-            } 
+                IList<SkiItem> skiItems = await skiItemRepository.GetSkiItemsByIds(ids);
+
+                double totalPrice = 0;
+
+                foreach (SkiItem skiItem in skiItems)
+                {
+                    totalPrice += skiItem.Price;
+                }
+
+                var order = new Order
+                {
+                    Price = totalPrice
+                };
+
+                await orderRepository.Add(order);
+
+                foreach (SkiItem skiItem in skiItems)
+                {
+                    skiItem.Order = order;
+
+                    await skiItemRepository.Update(skiItem);
+                }
+                return order;
+            }
             catch (Exception e)
             {
                 return null;
@@ -164,7 +165,7 @@ namespace Ski4U.Api.Mutations
             return await orderRepository.Update(order);
         }
 
-        public async Task<Order> DeleteOrder(int id, 
+        public async Task<Order> DeleteOrder(int id,
             [Service] IOrderRepository orderRepository)
         {
             return await orderRepository.DeleteById(id);

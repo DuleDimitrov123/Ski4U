@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ski4U.Data.Models
 {
@@ -22,7 +23,9 @@ namespace Ski4U.Data.Models
 
         public IList<Comment> Comments { get; set; } = new List<Comment>();
 
-        public int OrderId = 0;
-        public Order Order { get; set; } = new Order();
+        public int? OrderId { get; set; }
+
+        [ForeignKey("OrderId")]
+        public Order Order { get; set; }
     }
 }

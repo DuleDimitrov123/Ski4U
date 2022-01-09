@@ -70,7 +70,7 @@ namespace Ski4U.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId1")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
@@ -84,7 +84,7 @@ namespace Ski4U.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId1");
+                    b.HasIndex("OrderId");
 
                     b.ToTable("SkiItems");
                 });
@@ -127,7 +127,7 @@ namespace Ski4U.Data.Migrations
                 {
                     b.HasOne("Ski4U.Data.Models.Order", "Order")
                         .WithMany("SkiItems")
-                        .HasForeignKey("OrderId1");
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Order");
                 });

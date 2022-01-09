@@ -40,10 +40,9 @@ namespace Ski4U.Api.Types
                 return await repository.GetAllCommentsBySkiItemId(item.Id);
             }
 
-            //TODO: skiItem.order is always null
             public async Task<Order> GetOrder(SkiItem skiItem, OrderBatchDataLoader dataLoader)
             {
-                return await dataLoader.LoadAsync(skiItem.OrderId);
+                return (Order)await dataLoader.LoadAsync(skiItem.OrderId);
             }
         }
     }

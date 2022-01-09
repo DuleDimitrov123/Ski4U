@@ -8,7 +8,7 @@ namespace Ski4U.Data.Models
     {
         public int Id { get; set; }
 
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         public IList<SkiItem> SkiItems { get; set; } = new List<SkiItem>();
 
