@@ -21,6 +21,8 @@ namespace Ski4U.Data.Models
 
         public string Address { get; set; }
 
-        //public IList<Order> Orders { get; set; } = new List<Order>();
+        public IList<Order> Orders { get; set; } = new List<Order>();
+
+        public IList<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

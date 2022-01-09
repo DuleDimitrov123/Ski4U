@@ -2,17 +2,17 @@
 
 namespace Ski4U.Data.Migrations
 {
-    public partial class AddCustomer : Migration
+    public partial class ConnectWithOrder : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_SkiItemAttributes_SkiItems_SkiItemId",
-                table: "SkiItemAttributes");
+                name: "FK_Orders_Customers_CustomerId",
+                table: "Orders");
 
             migrationBuilder.AlterColumn<int>(
-                name: "SkiItemId",
-                table: "SkiItemAttributes",
+                name: "CustomerId",
+                table: "Orders",
                 type: "int",
                 nullable: false,
                 defaultValue: 0,
@@ -21,10 +21,10 @@ namespace Ski4U.Data.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_SkiItemAttributes_SkiItems_SkiItemId",
-                table: "SkiItemAttributes",
-                column: "SkiItemId",
-                principalTable: "SkiItems",
+                name: "FK_Orders_Customers_CustomerId",
+                table: "Orders",
+                column: "CustomerId",
+                principalTable: "Customers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -32,22 +32,22 @@ namespace Ski4U.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_SkiItemAttributes_SkiItems_SkiItemId",
-                table: "SkiItemAttributes");
+                name: "FK_Orders_Customers_CustomerId",
+                table: "Orders");
 
             migrationBuilder.AlterColumn<int>(
-                name: "SkiItemId",
-                table: "SkiItemAttributes",
+                name: "CustomerId",
+                table: "Orders",
                 type: "int",
                 nullable: true,
                 oldClrType: typeof(int),
                 oldType: "int");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_SkiItemAttributes_SkiItems_SkiItemId",
-                table: "SkiItemAttributes",
-                column: "SkiItemId",
-                principalTable: "SkiItems",
+                name: "FK_Orders_Customers_CustomerId",
+                table: "Orders",
+                column: "CustomerId",
+                principalTable: "Customers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }

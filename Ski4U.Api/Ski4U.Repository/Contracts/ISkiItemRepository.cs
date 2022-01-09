@@ -8,5 +8,6 @@ namespace Ski4U.Repository.Contracts
     public interface ISkiItemRepository : IRepository<SkiItem>
     {
         Task<IList<SkiItem>> GetSkiItemsByIds(IList<int> ids);
+        Task<IList<SkiItem>> GetAllSkiItemsByOrderId(int orderId);
     }
 }
