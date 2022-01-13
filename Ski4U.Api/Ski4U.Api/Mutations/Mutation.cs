@@ -8,6 +8,7 @@ using static Ski4U.Api.Models.CustomerModels;
 using static Ski4U.Api.Models.CommentModels;
 using static Ski4U.Api.Models.OrderModels;
 using static Ski4U.Api.Models.SkiItemModels;
+using static Ski4U.Api.Models.FavoriteModels;
 
 namespace Ski4U.Api.Mutations
 {
@@ -217,6 +218,35 @@ namespace Ski4U.Api.Mutations
             }
 
             return await orderRepository.DeleteById(id);
+        }
+
+        #endregion
+
+        #region Favorite
+        public async Task<Favorite> AddFavorite(AddFavoriteRequest request,
+            [Service] IFavoriteRepository favoriteRepository)
+        {
+            var favorite = new Favorite
+            {
+                CustomerId = request.CustomerId,
+                SkiItemId = request.SkiItemId
+
+            };
+
+            return await favoriteRepository.Add(favorite);
+        }
+
+        public async Task<Favorite> DeleteFavorite(DeleteFavoriteRequest request,
+            [Service] IFavoriteRepository favoriteRepository)
+        {
+            try
+            {
+                return await favoriteRepository.DeleteById(request.FavoriteId);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         #endregion

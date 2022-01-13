@@ -21,6 +21,8 @@ namespace Ski4U.Data
         public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Order> Orders { get; set; }
+
+        public DbSet<Favorite> Favorites { get; set; }
     }
 
     public class AppContextFactory : IDesignTimeDbContextFactory<AppDbContext>

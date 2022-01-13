@@ -26,6 +26,10 @@ namespace Ski4U.Api.Types
             descriptor.Field(si => si.Order)
                .ResolveWith<Resolvers>(si => si.GetOrder(default!, default!))
                .Description("This is order that this ski item belongs to.");
+
+            descriptor.Field(si => si.Favorites)
+                .ResolveWith<Resolvers>(si => si.GetFavorites(default!, default!))
+                .Description("This is the favorites.");
         }
 
         private class Resolvers
@@ -43,6 +47,11 @@ namespace Ski4U.Api.Types
             public async Task<Order> GetOrder(SkiItem skiItem, OrderBatchDataLoader dataLoader)
             {
                 return (Order)await dataLoader.LoadAsync(skiItem.OrderId);
+            }
+
+            public async Task<IList<Favorite>> GetFavorites(SkiItem skiItem, FavoritesBySkiItemsGroupedDataLoader dataLoader)
+            {
+                return await dataLoader.LoadAsync(skiItem.Id);
             }
         }
     }
