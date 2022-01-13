@@ -10,7 +10,6 @@ using Ski4U.Api.Queries;
 using Ski4U.Api.Types;
 using Ski4U.Data;
 using Ski4U.DataLoader.DataLoaders;
-using Ski4U.Repository;
 using Ski4U.Repository.Contracts;
 using Ski4U.Repository.Implementations;
 
@@ -39,18 +38,23 @@ namespace Ski4U.Api
                 .AddMutationType<Mutation>()
                 .AddType<SkiItemType>()
                 .AddType<SkiItemAttributeType>()
+                .AddType<CustomerType>()
+                .AddType<CommentType>()
+                .AddType<OrderType>()
                 .AddFiltering()
                 .AddSorting();
 
             //repositories
             services.AddTransient<ISkiItemRepository, SkiItemRepository>();
             services.AddTransient<ISkiItemAttributeRepository, SkiItemAttributeRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
 
-            //data loaders
             services.AddTransient<SkiItemBatchDataLoader>();
+            services.AddTransient<CustomerBatchDataLoader>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

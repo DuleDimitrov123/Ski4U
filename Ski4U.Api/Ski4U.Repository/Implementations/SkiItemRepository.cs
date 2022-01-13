@@ -19,7 +19,15 @@ namespace Ski4U.Repository.Implementations
 
         public async Task<IList<SkiItem>> GetSkiItemsByIds(IList<int> ids)
         {
-            return await _dbSet.Include(item => item.SkiItemAttributes).Where(s => ids.Contains(s.Id)).ToListAsync();
+            return await _dbSet.Include(item => item.SkiItemAttributes).Include(skiItem => skiItem.Order).Where(s => ids.Contains(s.Id)).ToListAsync();
+        }
+
+        public async Task<IList<SkiItem>> GetAllSkiItemsByOrderId(int orderId)
+        {
+            return await _dbSet
+                .Include(skiItem => skiItem.Order)
+                .Where(skiItem => skiItem.Order.Id == orderId)
+                .ToListAsync();
         }
     }
 }
