@@ -211,6 +211,11 @@ namespace Ski4U.Api.Mutations
         {
             var order = orderRepository.GetOneWithIncludes(id, order => order.SkiItems);
 
+            if(order == null)
+            {
+                return null;
+            }
+
             foreach (var skiItem in order.SkiItems)
             {
                 skiItem.Order = null;
@@ -223,6 +228,7 @@ namespace Ski4U.Api.Mutations
         #endregion
 
         #region Favorite
+
         public async Task<Favorite> AddFavorite(AddFavoriteRequest request,
             [Service] IFavoriteRepository favoriteRepository)
         {
