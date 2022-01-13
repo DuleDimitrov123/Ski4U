@@ -1,6 +1,8 @@
 ﻿using HotChocolate;
 using HotChocolate.Types;
 using Ski4U.Data.Models;
+using Ski4U.DataLoader.DataLoaders;
+using Ski4U.Repository.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,21 +10,34 @@ namespace Ski4U.Api.Types
 {
     public class CustomerType : ObjectType<Customer>
     {
-        //This should be added after we implement logic for orders (repository, dataloaders...)
-        /*protected override void Configure(IObjectTypeDescriptor<Customer> descriptor)
+        protected override void Configure(IObjectTypeDescriptor<Customer> descriptor)
         {
             descriptor.Description("Represents a customer for ski items");
 
             descriptor.Field(c => c.Orders)
-                .ResolveWith<Reso>
+                .ResolveWith<Resolvers>(c => c.GetOrders(default!, default!))
+                .Description("List of orders for the customer");
+
+            descriptor.Field(c => c.Comments)
+                .ResolveWith<Resolvers>(c => c.GetComments(default!, default!))
+                .Description("List of comments for the customer");
         }
 
         private class Resolvers
         {
-            public async Task<IList<Order>> GetOrders(Order order, [Service] IOrderRepository orderRepository)
+            public async Task<IList<Order>> GetOrders(Customer customer, OrdersByCustomersGroupDataLoader dataLoader)
             {
-                return null;
+                //return await orderRepository.GetOrdersByCustomerId(customer.Id);
+                var orders = await dataLoader.LoadAsync(customer.Id);
+                return orders;
             }
-        }*/
+
+            public async Task<IList<Comment>> GetComments(Customer customer, CommentsByCustomersGroupedDataLoader dataLoader)
+            {
+                //return await commentRepository.GetAllCommentsByCustomerId(customer.Id);
+                var comments = await dataLoader.LoadAsync(customer.Id);
+                return comments;
+            }
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace Ski4U.Repository.Contracts
     public interface IOrderRepository : IRepository<Order>
     {
         Task<IList<Order>> GetOrdersByIds(IList<int> ids);
+
+        Task<IList<Order>> GetOrdersByCustomerIds(IList<int> customerIds);
     }
 }

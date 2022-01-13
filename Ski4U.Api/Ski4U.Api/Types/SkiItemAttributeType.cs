@@ -20,7 +20,8 @@ namespace Ski4U.Api.Types
         {
             public async Task<SkiItem> GetSkiItem(SkiItemAttribute skiItemAttribute, SkiItemBatchDataLoader dataLoader)
             {
-                return await dataLoader.LoadAsync(skiItemAttribute.SkiItem.Id);
+                var skiItem = await dataLoader.LoadAsync(skiItemAttribute.SkiItem.Id);
+                return skiItem;
             }
         }
     }

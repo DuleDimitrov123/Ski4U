@@ -20,6 +20,10 @@ namespace Ski4U.Api.Types
 
             descriptor.Field(order => order.Price)
                 .Description("Total price of order (updates every time new ski item is added)");
+
+            descriptor.Field(order => order.Customer)
+                .ResolveWith<Resolvers>(order => order.GetCustomer(default!, default!))
+                .Description("Customer for the order");
         }
 
         private class Resolvers
@@ -27,6 +31,11 @@ namespace Ski4U.Api.Types
             public async Task<IList<SkiItem>> GetSkiItems(Order order, [Service] ISkiItemRepository repository)
             {
                 return await repository.GetAllSkiItemsByOrderId(order.Id);
+            }
+
+            public async Task<Customer> GetCustomer(Order order, CustomerBatchDataLoader dataLoader)
+            {
+                return await dataLoader.LoadAsync(order.CustomerId);
             }
         }
     }

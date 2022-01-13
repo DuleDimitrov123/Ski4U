@@ -14,12 +14,26 @@ namespace Ski4U.Repository.Implementations
            : base(dbContextFactory)
         {
         }
+
         public async Task<IList<Comment>> GetAllCommentsBySkiItemId(int skiItemId)
         {
             return await _dbSet
-               .Include(comment => comment.SkiItem)
-               .Where(comment => comment.SkiItem.Id == skiItemId)
+               .Where(comment => comment.SkiItemId == skiItemId)
                .ToListAsync();
+        }
+
+        public async Task<IList<Comment>> GetAllCommentsByCustomerId(int customerId)
+        {
+            return await _dbSet
+                .Where(comment => comment.CustomerId == customerId)
+                .ToListAsync();
+        }
+
+        public async Task<IList<Comment>> GetAllCommentsByCustomerIds(IList<int> customerIds)
+        {
+            return await _dbSet
+                .Where(comment => customerIds.Contains(comment.CustomerId))
+                .ToListAsync();
         }
     }
 }

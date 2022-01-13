@@ -38,7 +38,7 @@ namespace Ski4U.Api
                 .AddMutationType<Mutation>()
                 .AddType<SkiItemType>()
                 .AddType<SkiItemAttributeType>()
-                //.AddType<CustomerType>()//this type can't be added until we finish logic for orders (repository, dataloaders)
+                .AddType<CustomerType>()
                 .AddType<CommentType>()
                 .AddType<OrderType>()
                 .AddFiltering()
@@ -53,10 +53,6 @@ namespace Ski4U.Api
             services.AddTransient<CustomerBatchDataLoader>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
-
-            //data loaders
-            services.AddTransient<SkiItemBatchDataLoader>();
-            services.AddTransient<OrderBatchDataLoader>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

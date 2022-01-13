@@ -23,5 +23,12 @@ namespace Ski4U.Repository.Implementations
                 .Where(o => ids.Contains(o.Id))
                 .ToListAsync();
         }
+
+        public async Task<IList<Order>> GetOrdersByCustomerIds(IList<int> customerIds)
+        {
+            return await _dbSet
+                .Where(order => customerIds.Contains(order.CustomerId))
+                .ToListAsync();
+        }
     }
 }

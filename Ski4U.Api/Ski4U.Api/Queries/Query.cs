@@ -46,7 +46,8 @@ namespace Ski4U.Api.Queries
         [UseFiltering]
         public async Task<IList<Customer>> GetCustomers([Service] ICustomerRepository customerRepository)
         {
-            return await customerRepository.GetAll();
+            var customers = await customerRepository.GetAll();
+            return customers;
         }
 
         [UseSorting]
