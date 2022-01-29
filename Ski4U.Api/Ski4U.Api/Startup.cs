@@ -41,6 +41,7 @@ namespace Ski4U.Api
                 .AddType<CustomerType>()
                 .AddType<CommentType>()
                 .AddType<OrderType>()
+                .AddType<FavoriteType>()
                 .AddFiltering()
                 .AddSorting();
 
@@ -48,11 +49,9 @@ namespace Ski4U.Api
             services.AddTransient<ISkiItemRepository, SkiItemRepository>();
             services.AddTransient<ISkiItemAttributeRepository, SkiItemAttributeRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-
-            services.AddTransient<SkiItemBatchDataLoader>();
-            services.AddTransient<CustomerBatchDataLoader>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IFavoriteRepository, FavoriteRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

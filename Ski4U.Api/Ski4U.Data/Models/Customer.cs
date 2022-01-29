@@ -24,5 +24,7 @@ namespace Ski4U.Data.Models
         public IList<Order> Orders { get; set; } = new List<Order>();
 
         public IList<Comment> Comments { get; set; } = new List<Comment>();
+
+        public IList<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }

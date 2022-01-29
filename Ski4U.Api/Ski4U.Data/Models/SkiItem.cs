@@ -27,5 +27,7 @@ namespace Ski4U.Data.Models
 
         [ForeignKey("OrderId")]
         public Order Order { get; set; }
+
+        public IList<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }

@@ -21,6 +21,10 @@ namespace Ski4U.Api.Types
             descriptor.Field(c => c.Comments)
                 .ResolveWith<Resolvers>(c => c.GetComments(default!, default!))
                 .Description("List of comments for the customer");
+
+            descriptor.Field(c => c.Favorites)
+                .ResolveWith<Resolvers>(c => c.GetFavorites(default!, default!))
+                .Description("List of favorites for the customer");
         }
 
         private class Resolvers
@@ -37,6 +41,11 @@ namespace Ski4U.Api.Types
                 //return await commentRepository.GetAllCommentsByCustomerId(customer.Id);
                 var comments = await dataLoader.LoadAsync(customer.Id);
                 return comments;
+            }
+
+            public async Task<IList<Favorite>> GetFavorites(Customer customer, FavoritesByCustomerGroupedDataLoader dataLoader)
+            {
+                return (IList<Favorite>)await dataLoader.LoadAsync(customer.Id);
             }
         }
     }

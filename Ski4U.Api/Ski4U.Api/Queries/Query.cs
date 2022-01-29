@@ -5,6 +5,7 @@ using Ski4U.DataLoader.DataLoaders;
 using Ski4U.Repository.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Ski4U.Api.Models.FavoriteModels;
 
 namespace Ski4U.Api.Queries
 {
@@ -91,6 +92,25 @@ namespace Ski4U.Api.Queries
         public async Task<List<Order>> GetMutlipleIdOrders(List<int> id, OrderBatchDataLoader dataLoader)
         {
             return (List<Order>)await dataLoader.LoadAsync(id);
+        }
+
+        #endregion
+
+        #region Favorite
+
+        [UseSorting]
+        [UseFiltering]
+        public async Task<IList<Favorite>> GetFavorites([Service] IFavoriteRepository favoriteRepository)
+        {
+            return await favoriteRepository.GetAll();
+        }
+
+        [UseSorting]
+        [UseFiltering]
+        public async Task<Favorite> GetFavorite(GetFavoriteRequest request,
+            FavoritesBatchDataLoader dataLoader)
+        {
+            return await dataLoader.LoadAsync(request.FavoriteId);
         }
 
         #endregion
