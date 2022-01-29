@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="5.0.2" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.8" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ski4U.DataLoader\Ski4U.DataLoader.csproj" />
+    <ProjectReference Include="..\Ski4U.Data\Ski4U.Data.csproj" />
+    <ProjectReference Include="..\Ski4U.Repository\Ski4U.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
